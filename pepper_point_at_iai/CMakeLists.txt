@@ -6,9 +6,9 @@ project(pepper_point_at_iai)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
    rospy
-   message_generation
    std_msgs
    geometry_msgs
+   message_generation
 )
 
 ## Generate services in the 'srv' folder
@@ -21,6 +21,7 @@ add_service_files(
 generate_messages(
   DEPENDENCIES
   geometry_msgs  # Or other packages containing msgs
+  std_msgs
 )
 
 ####
@@ -35,6 +36,10 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES text_to_speech
-#  CATKIN_DEPENDS other_catkin_pkg
+  CATKIN_DEPENDS geometry_msgs std_msgs rospy
 #  DEPENDS system_lib
+)
+
+include_directories(
+  ${catkin_INCLUDE_DIRS}
 )
