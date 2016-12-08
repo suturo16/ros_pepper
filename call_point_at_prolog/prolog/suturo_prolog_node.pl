@@ -5,7 +5,7 @@
 @license BSD
 */
 
-:- module(test_prolog_node,
+:- module(suturo_prolog_node,
     [
       createRosNode/1,
       changeNumber/4

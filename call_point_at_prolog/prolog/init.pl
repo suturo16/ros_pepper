@@ -20,7 +20,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % dependencies
 
-:- register_ros_package(test_prolog_node).
+:- register_ros_package(call_point_at_prolog).
 
 :- use_module(library('suturo_prolog_node')).
 
