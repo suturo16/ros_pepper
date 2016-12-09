@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <package>
-  <name>pepper_text_to_speech</name>
-  <version>0.0.0</version>
-  <description>A simple package with a service for text to speech. More options will be added at a later date.</description>
+  <name>pepper_audio_stream</name>
+  <version>0.0.1</version>
+  <description>This package is supposed to use the API to get Audio from Pepper microphones and stream it to a topic.</description>
 
-  <!-- One maintainer tag required, multiple allowed, one person per tag --> 
+  <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
   <maintainer email="rafael@uni-bremen.de">Rafael Miranda</maintainer>

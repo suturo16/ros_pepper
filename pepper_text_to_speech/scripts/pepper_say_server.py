@@ -4,7 +4,7 @@
 This module is for the Text To Speech function from Pepper inside a ROS Environment.
 It was created by Rafael Miranda in November 2016.
 """
-from text_to_speech.srv import *
+from pepper_text_to_speech.srv import *
 import rospy
 import qi
 import argparse

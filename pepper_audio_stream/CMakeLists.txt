@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(pepper_text_to_speech)
+project(pepper_audio_stream)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -52,10 +52,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate services in the 'srv' folder
-add_service_files(
-  FILES
-  PepperSay.srv
-)
+#add_service_files(
+#  FILES
+#  PepperSay.srv
+#)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -146,7 +146,7 @@ catkin_package(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 install(PROGRAMS
-  scripts/pepper_say_server.py
+  scripts/pepper_audio_stream_publisher.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
