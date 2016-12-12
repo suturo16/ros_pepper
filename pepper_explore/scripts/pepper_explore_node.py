@@ -17,19 +17,21 @@ def main(session):
     # Get the services ALNavigation and ALMotion.
     navigation_service = session.service("ALNavigation")
     motion_service = session.service("ALMotion")
-
+    tts = session.service("ALTextToSpeech")
+    tts.say("I will start exploring now, this may take a bit!")
     # Wake up robot
     motion_service.wakeUp()
-
     # Explore the environement, in a radius of 2 m.
     radius = 2.0
     error_code = navigation_service.explore(radius)
     if error_code != 0:
         print "Exploration failed."
+        tts.say("Exploration Failed! I am sorry for that, but you can try again.")
         return
     # Saves the exploration on disk
     path = navigation_service.saveExploration()
     print "Exploration saved at path: \"" + path + "\""
+    tts.say("Exploration completed, the map was saved at " + path + " on my hard disk.")
     # Start localization to navigate in map
     navigation_service.startLocalization()
     # Come back to initial position
@@ -43,7 +45,8 @@ def main(session):
     img = numpy.array(result_map[4]).reshape(map_width, map_height)
     img = (100 - img) * 2.55 # from 0..100 to 255..0
     img = numpy.array(img, numpy.uint8)
-    Image.frombuffer('L',  (map_width, map_height), img, 'raw', 'L', 0, 1).show()
+    Image.frombuffer('L',  (map_width, map_height), img, 'raw', 'L', 0, 1).\
+        save("~/.local/share/Explorer/map_image.jpg")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

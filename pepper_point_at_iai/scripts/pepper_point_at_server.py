@@ -24,8 +24,9 @@ tts = None
 # This method gets the String from our SRV File and uses the Text to Speech from Pepper
 # to say stuff. Until now we will only return Complete.
 def pepper_point_at(req):
-    point = (req.pointAtPoint.x, req.pointAtPoint.y, req.pointAtPoint.z)
-    print "Got something to do! Pointing at " + req
+    point = [float (req.pointAtPoint.x), float(req.pointAtPoint.y), float(req.pointAtPoint.z)]
+    print "Got something to do! Pointing at (" +\
+          str(req.pointAtPoint.x) + ", " + str(req.pointAtPoint.y) + str(req.pointAtPoint.z) + ")"
     # so that pepper will say something before pointing at it. this will only work if the service is not available.
     tts.say("Look at this shit!")
     # now let's point somewhere!
