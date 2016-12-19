@@ -1,5 +1,5 @@
 #request field
-geometry_msgs/Point pointAtPoint
+geometry_msgs/PoseStamped point
 ---
 #response constants
 int8 COMPLETED=0

@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # -*- encoding: UTF-8 -*-
 
-"""Example: Use explore method."""
+"""Use explore method."""
 
 import qi
 import argparse
