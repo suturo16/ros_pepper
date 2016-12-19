@@ -7,8 +7,7 @@
 
 :- module(suturo_prolog_node,
     [
-      createRosNode/1,
-      changeNumber/4
+      createRosNode/4
     ]).
 
 :- use_module(library('semweb/rdf_db')).
@@ -18,14 +17,13 @@
     createRosNode(r),
     changeNumber(r,r,r,r).
 
-createRosNode(Node) :-
+pepper_point_at_client(XPostion, YPosition, ZPostion, AnswerObject) :-
   jpl_new('org.suturo.test.CallPointAtProlog', [], Node),
   jpl_list_to_array(['org.suturo.test.TestNode'], Arr),
   jpl_call('org.knowrob.utils.ros.RosUtilities', runRosjavaNode, [Node, Arr], _),
-  nb_setval(currClass, Node).
-
-changeNumber(XPostion, YPosition, ZPostion, AnswerObject) :-
-  nb_getval(currClass, Node),
   jpl_call(Node, 'callPointAtServiceRaw', [XPostion, YPosition, ZPostion], AnswerObject).
+
+
+
   
 
