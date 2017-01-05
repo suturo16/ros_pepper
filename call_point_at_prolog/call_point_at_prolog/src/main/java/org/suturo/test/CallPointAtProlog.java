@@ -14,6 +14,8 @@ import org.ros.node.service.ServiceClient;
 import org.ros.node.service.ServiceResponseListener;
 import org.ros.message.Time;
 
+import geometry_msgs.PoseStamped;
+import geometry_msgs.Pose;
 import geometry_msgs.Point;
 
 import pepper_point_at_iai.PepperPointAtRequest;
@@ -45,8 +47,8 @@ public class CallPointAtProlog extends AbstractNodeMain {
 
   }
 
-  public boolean callPointAtService(geometry_msgs.Point point){
-    return callPointAtServiceRaw(point.getX(), point.getY(), point.getZ());
+  public boolean callPointAtService(geometry_msgs.PoseStamped point){
+    return callPointAtServiceRaw(point.getPose().getPosition().getX(), point.getPose().getPosition().getY(), point.getPose().getPosition().getZ(), point.getHeader().getFrameId());
   }
 
   /**
@@ -55,7 +57,7 @@ public class CallPointAtProlog extends AbstractNodeMain {
    * @return An ObjectDetection with the pose and type of the detected object
    */
   public boolean callPointAtServiceRaw(double xPosition, 
-    double yPosition, double zPosition) {
+    double yPosition, double zPosition, String frameID) {
     
     // wait for node to be ready
     try {
@@ -76,9 +78,10 @@ public class CallPointAtProlog extends AbstractNodeMain {
     
     final pepper_point_at_iai.PepperPointAtRequest req = serviceClient.newMessage();
 
-    req.getPointAtPoint().setX(xPosition);
-    req.getPointAtPoint().setY(yPosition);
-    req.getPointAtPoint().setZ(zPosition);    
+    req.getPoint().getHeader().setFrameId(frameID);
+    req.getPoint().getPose().getPosition().setX(xPosition);
+    req.getPoint().getPose().getPosition().setY(yPosition);
+    req.getPoint().getPose().getPosition().setZ(zPosition);    
     // call the service and 
     serviceClient.call(req, new ServiceResponseListener<pepper_point_at_iai.PepperPointAtResponse>() {
       
