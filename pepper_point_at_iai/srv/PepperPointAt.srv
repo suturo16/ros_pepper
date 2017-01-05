@@ -1,5 +1,6 @@
 #request field
 geometry_msgs/PoseStamped point
+string description
 ---
 #response constants
 int8 COMPLETED=0

@@ -1,0 +1,8 @@
+<launch>
+<include file="$(find pepper_bringup)/launch/pepper_full.launch" />
+<include file="$(find nao_teleop)/launch/teleop_joy.launch" />
+<node name="pepper_point_at_server" pkg="pepper_point_at_iai" type="pepper_point_at_server.py"/>
+<node name="map_server" pkg="map_server" type="map_server" args="$(find iai_maps)/maps/map-2016-06-17.yaml"/>
+<node name="amcl_server" pkg="amcl" type="amcl" args="scan:=/pepper_robot/laser"/>
+</launch>
+

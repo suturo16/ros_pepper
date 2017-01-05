@@ -14,6 +14,7 @@ import qi
 import argparse
 import sys
 import os
+from thread import start_new_thread
 
 # This is just a variable which says which arm pepper will use.
 ARM = "RArm" # can be RArm, LArm or Arms
@@ -31,14 +32,23 @@ optimusPrime = None
 # We are using TF to transform the point we get to Torso frame from Pepper.
 def pepper_point_at(req):
     print "Got something to do!"
+    # the description of what pepper is pointing at:
+    description = req.description
     # the TF transformer
     pointPS = optimusPrime.transformPose("/torso", req.point)
     point = [float(pointPS.pose.position.x), float(pointPS.pose.position.y), float(pointPS.pose.position.z)]
     # so that pepper will say something before pointing at it.
-    tts.say("Look at this!")
+    tts.say("There.")
     # now let's point somewhere!
     #pointAt(const std::string& Effector, const std::vector<float>& Position, const int& Frame, const float& FractionMaxSpeed)
     trackerService.pointAt(ARM, point, FRAME, MAX_SPEED)
+    pointPS = optimusPrime.transformPose("/torso", req.point)
+    point = [float(pointPS.pose.position.x), float(pointPS.pose.position.y), float(pointPS.pose.position.z)]
+    trackerService.lookAt(point, FRAME, MAX_SPEED, True)
+
+    if description and description.strip():
+        tts.say(description)
+
     return PepperPointAtResponse(PepperPointAtResponse.COMPLETED)
 
 
