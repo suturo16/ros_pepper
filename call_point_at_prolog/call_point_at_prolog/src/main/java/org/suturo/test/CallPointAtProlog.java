@@ -47,8 +47,8 @@ public class CallPointAtProlog extends AbstractNodeMain {
 
   }
 
-  public boolean callPointAtService(geometry_msgs.PoseStamped point){
-    return callPointAtServiceRaw(point.getPose().getPosition().getX(), point.getPose().getPosition().getY(), point.getPose().getPosition().getZ(), point.getHeader().getFrameId());
+  public boolean callPointAtService(geometry_msgs.PoseStamped point, String description){
+    return callPointAtServiceRaw(point.getPose().getPosition().getX(), point.getPose().getPosition().getY(), point.getPose().getPosition().getZ(), point.getHeader().getFrameId(), description);
   }
 
   /**
@@ -57,7 +57,7 @@ public class CallPointAtProlog extends AbstractNodeMain {
    * @return An ObjectDetection with the pose and type of the detected object
    */
   public boolean callPointAtServiceRaw(double xPosition, 
-    double yPosition, double zPosition, String frameID) {
+    double yPosition, double zPosition, String frameID, String description) {
     
     // wait for node to be ready
     try {
@@ -81,7 +81,8 @@ public class CallPointAtProlog extends AbstractNodeMain {
     req.getPoint().getHeader().setFrameId(frameID);
     req.getPoint().getPose().getPosition().setX(xPosition);
     req.getPoint().getPose().getPosition().setY(yPosition);
-    req.getPoint().getPose().getPosition().setZ(zPosition);    
+    req.getPoint().getPose().getPosition().setZ(zPosition);   
+    req.setDescription(description); 
     // call the service and 
     serviceClient.call(req, new ServiceResponseListener<pepper_point_at_iai.PepperPointAtResponse>() {
       
