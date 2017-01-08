@@ -7,7 +7,8 @@
 
 :- module(suturo_prolog_node,
     [
-      pepper_point_at_client/6
+      pepper_point_at_client/6,
+      pepper_say_client/2
     ]).
 
 :- use_module(library('semweb/rdf_db')).
