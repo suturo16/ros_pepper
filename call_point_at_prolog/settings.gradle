@@ -13,5 +13,6 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-include 'call_point_at_prolog'
 include 'pepper_point_at_iai'
+include 'pepper_text_to_speech'
+include 'call_point_at_prolog'

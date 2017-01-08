@@ -22,6 +22,12 @@ pepper_point_at_client(XPostion, YPosition, ZPostion, FrameID, Description, Answ
   jpl_call('org.knowrob.utils.ros.RosUtilities', runRosjavaNode, [Node, Arr], _),
   jpl_call(Node, 'callPointAtServiceRaw', [XPostion, YPosition, ZPostion, FrameID, Description], AnswerObject).
 
+pepper_say_client(SayString, AnswerObject) :-
+  jpl_new('org.suturo.test.CallPointAtProlog', [], Node),
+  jpl_list_to_array(['org.suturo.test.TestNode'], Arr),
+  jpl_call('org.knowrob.utils.ros.RosUtilities', runRosjavaNode, [Node, Arr], _),
+  jpl_call(Node, 'callSayService', [SayString], AnswerObject).
+
 
 
   

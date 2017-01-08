@@ -21,6 +21,8 @@ import geometry_msgs.Point;
 import pepper_point_at_iai.PepperPointAtRequest;
 import pepper_point_at_iai.PepperPointAtResponse;
 
+import pepper_text_to_speech.*;
+
 
 
 /**
@@ -100,5 +102,48 @@ public class CallPointAtProlog extends AbstractNodeMain {
     
     return true;
   }
+
+    public boolean callSayService(String description){
+    // wait for node to be ready
+    try {
+      while(node == null) {
+        Thread.sleep(200);
+      }
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    
+    ServiceClient<PepperSayRequest, pepper_text_to_speech.PepperSayResponse> serviceClientSay;
+    // start service client
+    try {
+      serviceClientSay = node.newServiceClient("pepper_say", pepper_text_to_speech.PepperSay._TYPE);
+      
+    } catch (ServiceNotFoundException e) {
+      throw new RosRuntimeException(e);
+    }
+    
+    final pepper_text_to_speech.PepperSayRequest req = serviceClientSay.newMessage();
+ 
+    req.setStr(description); 
+    // call the service and 
+    serviceClientSay.call(req, new ServiceResponseListener<pepper_text_to_speech.PepperSayResponse>() {
+      
+      @Override
+      public void onSuccess(pepper_text_to_speech.PepperSayResponse response) {
+          node.getLog().info(response.getReturn());
+
+      }
+
+      @Override
+      public void onFailure(RemoteException e) {
+        throw new RosRuntimeException(e);
+      }
+    });
+    
+    return true;
+  }
+
+
+
 
 }

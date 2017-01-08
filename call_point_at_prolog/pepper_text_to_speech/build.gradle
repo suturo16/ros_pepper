@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 Sascha Jongebloed, Melina Svensson Köhler.
+ * Copyright (C) 2015 Sascha Jongebloed, Melina Svensson Köhler 2014 Moritz Tenorth.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -14,26 +14,12 @@
  * the License.
  */
 
-/* This plugin is necessary for creating installApp tasks (i.e. executables) */
-apply plugin: 'application'
-mainClassName = 'org.ros.RosRun'
+try {
+    project.catkin.tree.generateMessageArtifact(project, 'pepper_text_to_speech')
 
-/* 
- Dependencies can be on external maven artifacts (such as rosjava_core
- here) or on sibling subprojects. Fpr external maven artifact dependencies
- it's convenient to use an open ranged dependency, but restrict it to
- cover the patch version only to avoid breakages due to api changes
- which usually occur on minor and major version numbers.
-*/
-
-dependencies {
-  compile project(':pepper_point_at_iai')
-  compile project(':pepper_text_to_speech')
-
-  /* An external maven artifact dependency */
-  compile 'org.ros.rosjava_core:rosjava:[0.1,)'
-  /* Example of a local subproject dependency */ 
-  /* compile project(':sibling_gradle_project') */
+} catch (NullPointerException e) {
+    println(project)
+    println("Couldn't find pepper_point_at_iai on the ROS_PACKAGE_PATH!")
 }
 
 task writeClasspath << {
@@ -43,5 +29,3 @@ task writeClasspath << {
                                                project.name + "-" +
                                                project.version + ".jar" + "\n"
 }
-
-compileJava.options.encoding = 'utf-8'
