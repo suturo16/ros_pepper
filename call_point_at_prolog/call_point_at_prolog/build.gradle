@@ -27,10 +27,10 @@ mainClassName = 'org.ros.RosRun'
 */
 
 dependencies {
+  compile project(':pepper_point_at_iai')
 
   /* An external maven artifact dependency */
-  compile 'org.ros.rosjava_core:rosjava:[0.2,0.3)'
-  compile project(':pepper_point_at_iai')
+  compile 'org.ros.rosjava_core:rosjava:[0.1,)'
   /* Example of a local subproject dependency */ 
   /* compile project(':sibling_gradle_project') */
 }
@@ -42,3 +42,5 @@ task writeClasspath << {
                                                project.name + "-" +
                                                project.version + ".jar" + "\n"
 }
+
+compileJava.options.encoding = 'utf-8'

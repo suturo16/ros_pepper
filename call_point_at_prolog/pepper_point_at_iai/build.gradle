@@ -14,15 +14,6 @@
  * the License.
  */
 
-dependencies {
- // Dependency on another rosjava project in the same catkin package
-
-  /* An external maven artifact dependency */
-  compile 'org.ros.rosjava_core:rosjava:[0.2,0.3)'
-  /* Example of a local subproject dependency */ 
-  /* compile project(':sibling_gradle_project') */
-}
-
 try {
     project.catkin.tree.generateMessageArtifact(project, 'pepper_point_at_iai')
 
